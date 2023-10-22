@@ -29,7 +29,7 @@ public class MyBookRepositoryImpl implements MyBookRepository {
 
     @Override
     public boolean updateReading(int isbn, int currentPages) {
-        return false;
+        return true;
     }
 
 }

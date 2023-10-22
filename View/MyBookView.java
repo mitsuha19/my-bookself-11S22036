@@ -67,7 +67,14 @@ public class MyBookView {
     public void readingMyBook() {
         System.out.println("Membaca My Book");
         var isbn = InputUtil.input("ISBN (x Jika Batal)");
-
+        if (isbn.equals("x")) {
+            System.out.println("Tindakan dibatalkan");
+            System.out.println();
+        } else {
+            int isbnnumber = Integer.parseInt(isbn);
+            myBookService.readingMyBook(isbnnumber);
+        }
+        
     }
 
     public void removeMyBook() {

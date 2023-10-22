@@ -13,6 +13,7 @@ public class MyBook {
     public MyBook(int isbn, String title, String author, String publisher, int year, int totalPages) {
         this.isbn = isbn;
         this.title = title;
+        this.author = author;
         this.publisher = publisher;
         this.year = year;
         this.totalPages = totalPages;

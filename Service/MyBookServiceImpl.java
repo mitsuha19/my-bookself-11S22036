@@ -2,6 +2,7 @@ package Service;
 
 import Entity.MyBook;
 import Repository.MyBookRepository;
+import Util.InputUtil;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,41 @@ public class MyBookServiceImpl implements MyBookService {
 
     @Override
     public boolean readingMyBook(int isbn) {
-        return false;
+        MyBook membaca = null;
+        boolean succes = false;
+
+        for (MyBook myBook : myBookRepository.getAll()) {
+            if(myBook.getIsbn() == isbn) {
+                membaca = myBook;
+                 System.out.println("Informasi Buku :");
+                System.out.println("ISBN : " + membaca.getIsbn());
+                System.out.println("Judul : " + membaca.getTitle());
+                System.out.println("Penulis : " + membaca.getAuthor());
+                System.out.println("Penerbit : " + membaca.getPublisher());
+                System.out.println("Tahun Terbit : " + membaca.getYear());
+                System.out.println("Jumlah Halaman : " + membaca.getTotalPages());
+                System.out.println("Halaman Terakhir Dibaca : " + membaca.getCurrentPages());
+                System.out.println("Status Arsip : Tidak Diarsipkan");
+                System.out.println();
+
+                var inginMembaca = InputUtil.input("Halaman saat ini");
+                System.out.println();
+
+                int numMembaca = Integer.parseInt(inginMembaca);
+                if(numMembaca > membaca.getTotalPages() || numMembaca < 0) {
+                    System.out.println("GAGAL MEMBACA MY BOOK : " + membaca.getIsbn() + " sampai halaman " + numMembaca);
+                } else {
+                    membaca.setCurrentPages(numMembaca);
+                    System.out.println("SUKSES MEMBACA MY BOOK : " + membaca.getIsbn() + " sampai halaman " + membaca.getCurrentPages());
+                    succes = myBookRepository.updateReading(isbn, numMembaca);;
+                }
+                break;
+            } else {
+                System.out.println("Buku dengan ISBN " + isbn + " belum tersedia");
+                System.out.println();
+            }
+        }
+        return succes;
     }
 
     @Override
@@ -44,6 +79,7 @@ public class MyBookServiceImpl implements MyBookService {
                 break;
             }
         }
+
         MyBook myBook = new MyBook(isbn,title,author,publisher,year,totalPages);
         if (isexixt != null) {
             System.out.println("GAGAL MENAMBAH MY BOOK : isbn " + myBook.getIsbn() + " telah tersedia");
