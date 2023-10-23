@@ -32,4 +32,25 @@ public class MyBookRepositoryImpl implements MyBookRepository {
         return true;
     }
 
+    @Override
+    public ArrayList<MyBook> getWithoutArchived() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<MyBook> getOnlyArchived() {
+         return null;
+    }
+    
+    @Override
+    public boolean updateArchived(int isbn, boolean isArchived) {
+        for (MyBook myBook : data) {
+            if(myBook.getIsbn() == isbn) {
+                myBook.setArchived(isArchived);
+                return true;
+            }
+        }  
+        return false;
+    }
+
 }

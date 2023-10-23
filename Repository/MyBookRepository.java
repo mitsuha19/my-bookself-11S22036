@@ -10,5 +10,8 @@ public interface MyBookRepository {
     public void add(MyBook myBook);
     public boolean remove(int isbn);
     public boolean updateReading(int isbn, int currentPages);
+    public ArrayList<MyBook> getWithoutArchived();
+    public ArrayList<MyBook> getOnlyArchived();
+    public boolean updateArchived(int isbn, boolean isArchived);
 
 }

@@ -30,6 +30,7 @@ public class MyBookView {
                 
                 case "2" -> addMyBook();
                 case "3" -> readingMyBook();
+                case "4" -> archivedMyBook();
                 case "5" -> removeMyBook();
                 case"x" -> stop = true;
                 default -> System.out.println("Pilihan tidak dimengerti");
@@ -79,5 +80,30 @@ public class MyBookView {
 
     public void removeMyBook() {
 
+    }
+
+    public void archivedMyBook() {
+        System.out.println("Mengarsipkan My Book");
+        var isbn = InputUtil.input("ISBN (x Jika Batal)");  
+        if(isbn.equals("x")) {
+            System.out.println("Tindakan dibatalkan");
+            System.out.println();
+        } else {
+            int isbnnumber = Integer.parseInt(isbn);
+            System.out.println();
+
+            System.out.println("Konfirmasi Tindakan :");
+            System.out.println("1. Mengarsipkan Buku");
+            System.out.println("[Lainnya]. Batal Mengarsipkan Buku");
+            var respond = InputUtil.input("Pilihan");
+            System.out.println();
+
+            if(respond.equals("1")) {
+                myBookService.updateArchivedMyBook(isbnnumber, true);
+            } else {
+                myBookService.updateArchivedMyBook(isbnnumber, false);
+            }
+        }
+        
     }
 }

@@ -15,13 +15,14 @@ public class MyBookServiceImpl implements MyBookService {
     @Override
     public void showMyBook() {
         ArrayList<MyBook> model = myBookRepository.getAll();
-
+        
         System.out.println("My Book (Semua) :");
         if (model.size() > 0) {
             for (int i = 0; i < model.size() ; i++) {
                 var mybook = model.get(i);
-
-                if (mybook != null) {
+                if (mybook != null && mybook.isArchived()) {
+                    System.out.println(mybook.getIsbn() + ". " + mybook.getTitle() + " [" + mybook.getCurrentPages() + "/" + mybook.getTotalPages() + "]" + " (Diarsipkan)");
+                } else if(mybook != null && !mybook.isArchived()) {
                     System.out.println(mybook.getIsbn() + ". " + mybook.getTitle() + " [" + mybook.getCurrentPages() + "/" + mybook.getTotalPages() + "]");
                 }
             }
@@ -99,6 +100,38 @@ public class MyBookServiceImpl implements MyBookService {
     @Override
     public void updateReadingMyBook(int isbn, int currentPages) {
 
+    }
+
+    @Override
+    public void showMyBookWithoutArchived() {
+        
+    }
+
+    @Override
+    public void showMyBookOnlyArchived() {
+
+    }
+
+    @Override
+    public void updateArchivedMyBook(int isbn, boolean isArchived) {
+        MyBook isexist = null;
+
+        for (MyBook myBook : myBookRepository.getAll()) {
+            if(myBook.getIsbn() == isbn) {
+                isexist = myBook;
+                break;
+            } 
+
+        }
+        if(isArchived && isexist != null) {
+            System.out.println("SUKSES MENGARSIPKAN MY BOOK : " + isbn + " menjadi diarsipkan");
+            myBookRepository.updateArchived(isbn, isArchived);
+        } else if(!isArchived && isexist != null) {
+            System.out.println("SUKSES MENGARSIPKAN MY BOOK : " + isbn + " menjadi batal diarsipkan");
+            myBookRepository.updateArchived(isbn, isArchived);
+        } else {
+            System.out.println("GAGAL MENGARSIPKAN MY BOOK : " + isbn + " menjadi diarsipkan");
+        }
     }
 
 }

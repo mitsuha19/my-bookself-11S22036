@@ -6,4 +6,8 @@ public interface MyBookService {
     public void addMyBook(int isbn, String title, String author, String publisher, int year, int totalPages);
     public void removeMyBook(int isbn);
     public void updateReadingMyBook(int isbn, int currentPages);
+    public void showMyBookWithoutArchived();
+    public void showMyBookOnlyArchived();
+    public void updateArchivedMyBook(int isbn, boolean isArchived);
+
 }

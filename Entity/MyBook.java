@@ -51,7 +51,7 @@ public class MyBook {
     }
 
     public boolean isArchived() {
-        return false;
+        return isArchived;
     }
 
     public void setArchived(boolean archived) {
