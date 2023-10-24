@@ -24,7 +24,17 @@ public class MyBookRepositoryImpl implements MyBookRepository {
 
     @Override
     public boolean remove(int isbn) {
-        return false;
+        boolean succes = false;
+        for (MyBook myBook : data) {
+            if (myBook.getIsbn() == isbn) {
+                succes = true;
+                data.remove(myBook);
+                break;
+            } else {
+                succes = false;
+            }
+        }
+        return succes;
     }
 
     @Override

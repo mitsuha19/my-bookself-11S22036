@@ -85,7 +85,17 @@ public class MyBookView {
     }
 
     public void removeMyBook() {
+        System.out.println("Menghapus My Book");
+        var isbn = InputUtil.input("ISBN (x Jika Batal)");
 
+        if (isbn.equals("x")) {
+            System.out.println("Tindakan dibatalkan");
+             System.out.println();
+        } else {
+            int isbnnumber = Integer.parseInt(isbn);
+            myBookService.removeMyBook(isbnnumber);
+        }
+        
     }
 
     public void archivedMyBook() {

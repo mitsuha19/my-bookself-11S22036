@@ -94,7 +94,13 @@ public class MyBookServiceImpl implements MyBookService {
 
     @Override
     public void removeMyBook(int isbn) {
-
+        boolean succes = myBookRepository.remove(isbn);
+        System.out.println();
+        if (succes) {
+            System.out.println("SUKSES MENGHAPUS MY BOOK : " + isbn);
+        } else {
+            System.out.println("GAGAL MENGHAPUS MY BOOK : " + isbn);
+        }
     }
 
     @Override
