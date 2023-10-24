@@ -34,12 +34,25 @@ public class MyBookRepositoryImpl implements MyBookRepository {
 
     @Override
     public ArrayList<MyBook> getWithoutArchived() {
-        return null;
+        ArrayList<MyBook> save = new ArrayList<>();
+        for (MyBook myBook : data) {
+            if (!myBook.isArchived()) {
+                save.add(myBook);
+            }
+        }
+        return save;
     }
 
     @Override
     public ArrayList<MyBook> getOnlyArchived() {
-         return null;
+        ArrayList<MyBook> save = new ArrayList<>();
+        for (MyBook myBook : data) {
+            if (myBook.isArchived()) {
+                save.add(myBook);
+            }
+        }
+
+        return save;
     }
     
     @Override

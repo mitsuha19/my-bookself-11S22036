@@ -40,7 +40,7 @@ public class MyBookServiceImpl implements MyBookService {
         for (MyBook myBook : myBookRepository.getAll()) {
             if(myBook.getIsbn() == isbn) {
                 membaca = myBook;
-                 System.out.println("Informasi Buku :");
+                System.out.println("Informasi Buku :");
                 System.out.println("ISBN : " + membaca.getIsbn());
                 System.out.println("Judul : " + membaca.getTitle());
                 System.out.println("Penulis : " + membaca.getAuthor());
@@ -104,12 +104,33 @@ public class MyBookServiceImpl implements MyBookService {
 
     @Override
     public void showMyBookWithoutArchived() {
-        
+       ArrayList<MyBook> tanpaArchive = myBookRepository.getWithoutArchived();
+       System.out.println("My Book :");
+        if (tanpaArchive.size() > 0 ) {
+            for (int i = 0; i < tanpaArchive.size() ; i++) {
+                var mybook = tanpaArchive.get(i);
+                System.out.println(mybook.getIsbn() + ". " + mybook.getTitle() + " [" + mybook.getCurrentPages() + "/" + mybook.getTotalPages() + "]");
+            }
+        } else {
+            System.out.println("Belum ada daftar buku yang tersedia");
+        }
+        System.out.println();
+       
     }
 
     @Override
     public void showMyBookOnlyArchived() {
-
+       ArrayList<MyBook> denganArchive = myBookRepository.getOnlyArchived();
+       System.out.println("My Book (Diarsipkan) :");
+        if (denganArchive.size() > 0) {
+            for (int i = 0; i < denganArchive.size() ; i++) {
+                var mybook = denganArchive.get(i);
+                System.out.println(mybook.getIsbn() + ". " + mybook.getTitle() + " [" + mybook.getCurrentPages() + "/" + mybook.getTotalPages() + "]");
+            }
+        } else {
+            System.out.println("Belum ada daftar buku yang tersedia");
+        }
+        System.out.println();
     }
 
     @Override

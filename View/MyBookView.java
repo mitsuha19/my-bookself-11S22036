@@ -5,7 +5,8 @@ import Util.InputUtil;
 
 public class MyBookView {
     private MyBookService myBookService;
-    private int viewMode;
+    private int viewMode = 1;
+    private int previousViewMode = 1;
 
     public MyBookView (MyBookService myBookService){
         this.myBookService = myBookService;
@@ -13,8 +14,13 @@ public class MyBookView {
 
     public void showMybook() {
         while (true) {
-            myBookService.showMyBook();
-
+            if (viewMode == 1) {
+                myBookService.showMyBook();
+            } else if (viewMode == 2) {
+                myBookService.showMyBookWithoutArchived();
+            } else if(viewMode == 3) {
+                myBookService.showMyBookOnlyArchived();
+            }
             System.out.println("Menu :");
             System.out.println("1. Mode Tampilan");
             System.out.println("2. Tambah");
@@ -27,7 +33,7 @@ public class MyBookView {
             System.out.println();
             var stop = false;
             switch (input) {
-                
+                case "1" -> viewModeMyBook();
                 case "2" -> addMyBook();
                 case "3" -> readingMyBook();
                 case "4" -> archivedMyBook();
@@ -105,5 +111,41 @@ public class MyBookView {
             }
         }
         
+    }
+
+    public void viewModeMyBook() {
+        System.out.println("Memilih Mode Tampilan :");
+        System.out.println("1. Semua Daftar Buku");
+        System.out.println("2. Daftar Buku Selain yang Diarsipkan");
+        System.out.println("3. Daftar Buku yang Diarsipkan");
+        System.out.println("x. Batal");
+
+        var view = InputUtil.input("Pilih Mode");
+        
+        
+        if(view.equals("x")) {
+            viewMode = previousViewMode;
+            System.out.println("Tindakan dibatalkan");
+            System.out.println();
+        } else {
+            viewMode = Integer.parseInt(view);
+            if(viewMode == 1) {
+            previousViewMode = viewMode;
+            System.out.println("Berhasil mengubah mode tampilan menjadi : " + viewMode);
+            System.out.println();
+            } else if(viewMode == 2) {
+                previousViewMode = viewMode;
+                System.out.println("Berhasil mengubah mode tampilan menjadi : " + viewMode);
+                System.out.println();
+            } else if(viewMode == 3) {
+                previousViewMode = viewMode;
+                System.out.println("Berhasil mengubah mode tampilan menjadi : " + viewMode);
+                System.out.println();
+            } else {
+                viewMode = previousViewMode;
+                System.out.println("Pilihan tidak dimengerti");
+                System.out.println();
+            }
+        }
     }
 }
